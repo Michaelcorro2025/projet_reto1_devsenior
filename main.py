@@ -14,24 +14,24 @@ experimentos = []
 # Función para agregar un experimento
 def agregar_experimento():
     nombre = input("Nombre del experimento: ")
-    fecha_str = input("Fecha de realizacion (DD/MM/AAAA): ")
+    fecha_str = input("Fecha de realización (DD/MM/AAAA): ")
     try:
         fecha = datetime.datetime.strptime(fecha_str, "%d/%m/%Y")
     except ValueError:
-        print("Fecha no valida. Use el formato DD/MM/AAAA.")
+        print("Fecha no válida. Use el formato DD/MM/AAAA.")
         return
-    tipo = input("Tipo de experimento (quimica/biologia/fisica): ")
-    if tipo not in ["quimica", "biologia", "fisica"]:
-        print("Tipo de experimento no reconocido. Use quimica, biologia o fisica.")
+    tipo = input("Tipo de experimento (Quimica/Biologia/Fisica): ")
+    if tipo not in ["Quimica", "Biologia", "Fisica"]:
+        print("Tipo de experimento no reconocido. Use Quimica, Biologia o Fisica.")
         return
     try:
         resultados = list(map(float, input("Resultados obtenidos (separados por comas): ").split(",")))
     except ValueError:
-        print("Resultados no validos. Deben ser numeros separados por comas.")
+        print("Resultados no válidos. Deben ser números separados por comas.")
         return
     experimento = Experimento(nombre, fecha, tipo, resultados)
     experimentos.append(experimento)
-    print("Experimento se agregado exitosamente.")
+    print("Experimento agregado exitosamente.")
 
 # Función para visualizar los experimentos
 def visualizar_experimentos():
@@ -54,10 +54,10 @@ def analizar_resultados():
         promedio = sum(experimento.resultados) / len(experimento.resultados)
         maximo = max(experimento.resultados)
         minimo = min(experimento.resultados)
-        print(f"\nAnalisis de {experimento.nombre}:")
+        print(f"\nAnálisis de {experimento.nombre}:")
         print(f"Promedio: {promedio:.2f}")
-        print(f"Maximo: {maximo}")
-        print(f"Minimo: {minimo}")
+        print(f"Máximo: {maximo}")
+        print(f"Mínimo: {minimo}")
 
 # Función para comparar resultados entre experimentos
 def comparar_experimentos():
@@ -83,21 +83,38 @@ def generar_informe():
             maximo = max(experimento.resultados)
             minimo = min(experimento.resultados)
             archivo.write(f"Promedio: {promedio:.2f}\n")
-            archivo.write(f"Maximo: {maximo}\n")
-            archivo.write(f"Minimo: {minimo}\n\n")
+            archivo.write(f"Máximo: {maximo}\n")
+            archivo.write(f"Mínimo: {minimo}\n\n")
     print("Informe generado exitosamente.")
+
+# Función para eliminar un experimento
+def eliminar_experimento():
+    if not experimentos:
+        print("No hay experimentos registrados.")
+        return
+    visualizar_experimentos()
+    try:
+        index = int(input("Ingrese el número del experimento que desea eliminar: ")) - 1
+        if 0 <= index < len(experimentos):
+            eliminado = experimentos.pop(index)
+            print(f"Experimento '{eliminado.nombre}' eliminado exitosamente.")
+        else:
+            print("Número de experimento no válido.")
+    except ValueError:
+        print("Entrada no válida. Debe ingresar un número.")
 
 # Menú de opciones
 def menu():
     while True:
-        print("\nMenu de opciones:")
+        print("\n=== Menú ===")
         print("1. Agregar experimento")
         print("2. Visualizar experimentos")
         print("3. Analizar resultados")
         print("4. Comparar experimentos")
         print("5. Generar informe")
-        print("6. Salir")
-        opcion = input("Seleccione una opcion: ")
+        print("6. Eliminar experimento")
+        print("7. Salir")
+        opcion = input("Seleccione una opción: ")
         if opcion == "1":
             agregar_experimento()
         elif opcion == "2":
@@ -109,10 +126,12 @@ def menu():
         elif opcion == "5":
             generar_informe()
         elif opcion == "6":
-            print("Gracias por utilizar el programa...")
+            eliminar_experimento()
+        elif opcion == "7":
+            print("Saliendo del programa...")
             break
         else:
-            print("Opcion no valida. Intente nuevamente.")
+            print("Opción no válida. Intente nuevamente.")
 
 # Ejecutar el menú
 menu()
