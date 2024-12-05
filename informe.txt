@@ -1,0 +1,16 @@
+Nombre: bam
+Fecha: 02/05/2024
+Tipo: Quimica
+Resultados: [5.0, 5.0]
+Promedio: 5.00
+Máximo: 5.0
+Mínimo: 5.0
+
+Nombre: bam2
+Fecha: 02/10/2024
+Tipo: Biologia
+Resultados: [6.0, 6.0]
+Promedio: 6.00
+Máximo: 6.0
+Mínimo: 6.0
+
